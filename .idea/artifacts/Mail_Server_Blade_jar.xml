@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Mail-Server-Blade:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Mail_Server_Blade_jar</output-path>
+    <root id="archive" name="Mail-Server-Blade.jar">
+      <element id="module-output" name="Mail-Server-Blade" />
+      <element id="library" level="project" name="jawin-stubs" />
+    </root>
+  </artifact>
+</component>
