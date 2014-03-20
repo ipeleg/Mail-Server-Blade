@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d73d5ae0-5009-4c53-b99d-9fff82ac35c7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Mail-Server-Blade.iws" />
@@ -74,7 +69,7 @@
       <file leaf-file-name="MailServerHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="8" selection-start="473" selection-end="486" vertical-scroll-proportion="0.5445545" vertical-offset="0" max-vertical-offset="606">
+            <state line="25" column="0" selection-start="495" selection-end="495" vertical-scroll-proportion="0.6188119" vertical-offset="0" max-vertical-offset="606">
               <folding />
             </state>
           </provider>
@@ -433,12 +428,17 @@
       <created>1395343163441</created>
       <updated>1395343163441</updated>
       <workItem from="1395343164755" duration="269000" />
-      <workItem from="1395343440696" duration="174000" />
+      <workItem from="1395343440696" duration="373000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit&#10;">
+      <created>1395343623659</created>
+      <updated>1395343623659</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="443000" />
+    <option name="totallyTimeSpent" value="642000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="726" extended-state="6" />
@@ -457,6 +457,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -483,6 +484,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="Initial commit&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -494,7 +497,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="8" selection-start="473" selection-end="486" vertical-scroll-proportion="0.5445545" vertical-offset="0" max-vertical-offset="606">
+        <state line="25" column="0" selection-start="495" selection-end="495" vertical-scroll-proportion="0.6188119" vertical-offset="0" max-vertical-offset="606">
           <folding />
         </state>
       </provider>
