@@ -3,7 +3,10 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Mail_Server_Blade_jar</output-path>
     <root id="archive" name="Mail-Server-Blade.jar">
       <element id="module-output" name="Mail-Server-Blade" />
-      <element id="library" level="project" name="jawin-stubs" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jawin-stubs.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jawin.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/conf" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-1.2.16.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

@@ -1,13 +1,10 @@
 package com.mygreenbill;
 
+import org.apache.log4j.Logger;
 import org.jawin.COMException;
 import org.jawin.DispatchPtr;
 import org.jawin.win32.Ole32;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -15,6 +12,9 @@ import java.util.Properties;
  */
 public class MailServerHandler implements IMailServerHandler
 {
+    //Logger
+    private static final Logger LOGGER = Logger.getLogger(MailServerHandler.class);
+
     private Properties prop = new Properties();
 
     /**
@@ -22,37 +22,25 @@ public class MailServerHandler implements IMailServerHandler
      */
     public MailServerHandler()
     {
-        InputStream input = null;
-
         try
         {
-            input = new FileInputStream("conf/configuration.properties"); // Open the properties file
-            prop.load(input); // Load the file to the properties object
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
+            prop.load(MailServerHandler.class.getResourceAsStream("/configuration.properties")); // Load the file to the properties object
+            LOGGER.info("MailServerHandler Object was created");
         }
         catch (IOException e)
         {
             e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                input.close(); // Close the input stream
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            LOGGER.error("IOException in MailServerHandler");
         }
     }
 
     @Override
     public boolean createNewAccount(String accountName, String password, String forwardAddress)
     {
+        LOGGER.info("Request for creating new account");
+        LOGGER.info("New account name -> " + accountName);
+        LOGGER.info("New forward address -> " + forwardAddress);
+
         try
         {
             Ole32.CoInitialize(); // Initialize the current thread with COM library
@@ -86,9 +74,11 @@ public class MailServerHandler implements IMailServerHandler
         catch (COMException e)
         {
             e.printStackTrace();
+            LOGGER.error("COMException in createNewAccount");
             return false;
         }
 
+        LOGGER.info("New account was successfully created for -> " + accountName);
         return true;
     }
 
