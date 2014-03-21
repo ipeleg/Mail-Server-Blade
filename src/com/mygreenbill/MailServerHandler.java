@@ -4,6 +4,10 @@ import org.apache.log4j.Logger;
 import org.jawin.COMException;
 import org.jawin.DispatchPtr;
 import org.jawin.win32.Ole32;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -64,7 +68,7 @@ public class MailServerHandler implements IMailServerHandler
             LOGGER.error("COMException in prepareMailServer");
         }
 
-        LOGGER.info("hMailServer is ready");
+        LOGGER.info("hMailServer is ready, Domain and Accounts objects were set");
     }
 
     /**
@@ -122,7 +126,7 @@ public class MailServerHandler implements IMailServerHandler
     }
 
     @Override
-    public void setForwardAddress(String accountName, String forwardAddress)
+    public boolean setForwardAddress(String accountName, String forwardAddress)
     {
         prepareMailServer(); // Connect to the hMailServer
 
@@ -138,15 +142,55 @@ public class MailServerHandler implements IMailServerHandler
         {
             e.printStackTrace();
             LOGGER.error("COMException in setForwardAddress");
+            return false;
         }
 
         closeMailServerConnection(); // Closing the connection with mail server
         LOGGER.info("New forward address was set for: " + accountName + ", to: " + forwardAddress);
+        return true;
     }
 
     @Override
-    public boolean sendMessage(String toAddress, String message)
+    public boolean sendMessage(String toAddress, String messageToUser)
     {
-        return false;
+        final String username = "donotreplay"; // The account from which we send mails to users
+        final String pass = prop.getProperty("donotreplay_pass"); // The account password is in the properties file
+
+        // The SMTP server properties
+        Properties smtpProps = new Properties();
+        smtpProps.put("mail.smtp.auth", "true");
+        smtpProps.put("mail.smtp.starttls.enable", "true");
+        smtpProps.put("mail.smtp.host", "mail.mygreenbill.com");
+        smtpProps.put("mail.smtp.port", "25");
+
+        // Creating a session with the SMTP server
+        Session session = Session.getInstance(smtpProps,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, pass);
+                    }
+                });
+
+        try
+        {
+            // Preparing the message for sending
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username + "@mygreenbill.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
+
+            message.setSubject("Testing Subject");
+            message.setText(messageToUser);
+
+            Transport.send(message); // Sending the message
+        }
+        catch (MessagingException e)
+        {
+            e.printStackTrace();
+            LOGGER.error("MessagingException in sendMessage");
+            return false;
+        }
+
+        LOGGER.info("Message was sent to: " + toAddress);
+        return true;
     }
 }

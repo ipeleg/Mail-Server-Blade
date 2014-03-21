@@ -7,9 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d73d5ae0-5009-4c53-b99d-9fff82ac35c7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" afterPath="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java" afterPath="$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Mail_Server_Blade_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Mail_Server_Blade_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mygreenbill/Main.java" afterPath="$PROJECT_DIR$/src/com/mygreenbill/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/configuration.properties" afterPath="$PROJECT_DIR$/conf/configuration.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Mail-Server-Blade.iws" />
@@ -77,19 +80,12 @@
       <file leaf-file-name="MailServerHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="143" column="41" selection-start="5055" selection-end="5055" vertical-scroll-proportion="0.62057334" vertical-offset="1777" max-vertical-offset="2370">
+            <state line="175" column="48" selection-start="6356" selection-end="6356" vertical-scroll-proportion="1.390625" vertical-offset="2091" max-vertical-offset="3030">
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6052#6282#0" expanded="true" />
+                <element signature="e#6263#6264#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="log4j.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/log4j.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="39" selection-start="191" selection-end="191" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="315">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -97,7 +93,7 @@
       <file leaf-file-name="configuration.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conf/configuration.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="30" selection-start="261" selection-end="261" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="330">
+            <state line="13" column="16" selection-start="291" selection-end="307" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
               <folding />
             </state>
           </provider>
@@ -106,7 +102,7 @@
       <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="10" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+            <state line="18" column="87" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
               <folding />
             </state>
           </provider>
@@ -126,8 +122,9 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/com/mygreenbill/com/MailServerHandler.java" />
-        <option value="$PROJECT_DIR$/conf/configuration.properties" />
         <option value="$PROJECT_DIR$/src/log4j.properties" />
+        <option value="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" />
+        <option value="$PROJECT_DIR$/conf/configuration.properties" />
         <option value="$PROJECT_DIR$/src/com/mygreenbill/Main.java" />
         <option value="$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java" />
       </list>
@@ -327,7 +324,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/log4j-1.2.16.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/javax.mail.jar!/" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
@@ -625,7 +622,7 @@
       <workItem from="1395348079762" duration="177000" />
       <workItem from="1395348370869" duration="6316000" />
       <workItem from="1395405450799" duration="162000" />
-      <workItem from="1395405643366" duration="1531000" />
+      <workItem from="1395405643366" duration="3653000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit&#10;">
       <created>1395343623659</created>
@@ -643,11 +640,15 @@
       <created>1395355881096</created>
       <updated>1395355881096</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Set forward address was added">
+      <created>1395407227325</created>
+      <updated>1395407227325</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12914000" />
+    <option name="totallyTimeSpent" value="15036000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -682,7 +683,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -715,7 +716,8 @@
     </option>
     <MESSAGE value="Initial commit&#10;" />
     <MESSAGE value="Create new account added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create new account added" />
+    <MESSAGE value="Set forward address was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set forward address was added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -730,6 +732,8 @@
         <state line="35" column="0" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="230" max-vertical-offset="1530">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6052#6282#0" expanded="true" />
+            <element signature="e#6263#6264#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -760,6 +764,8 @@
         <state line="25" column="28" selection-start="549" selection-end="549" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1560">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6052#6282#0" expanded="true" />
+            <element signature="e#6263#6264#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -783,6 +789,8 @@
         <state line="56" column="36" selection-start="1459" selection-end="1459" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1560">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6052#6282#0" expanded="true" />
+            <element signature="e#6263#6264#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -808,25 +816,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="69" selection-start="521" selection-end="521" vertical-scroll-proportion="0.20654912" vertical-offset="188" max-vertical-offset="585">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/conf/configuration.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="30" selection-start="261" selection-end="261" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+        <state line="13" column="16" selection-start="291" selection-end="307" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="10" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+        <state line="18" column="87" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="41" selection-start="5055" selection-end="5055" vertical-scroll-proportion="0.62057334" vertical-offset="1777" max-vertical-offset="2370">
+        <state line="175" column="48" selection-start="6356" selection-end="6356" vertical-scroll-proportion="1.390625" vertical-offset="2091" max-vertical-offset="3030">
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6052#6282#0" expanded="true" />
+            <element signature="e#6263#6264#0" expanded="true" />
           </folding>
         </state>
       </provider>
