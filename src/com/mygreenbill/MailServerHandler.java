@@ -16,6 +16,9 @@ public class MailServerHandler implements IMailServerHandler
     private static final Logger LOGGER = Logger.getLogger(MailServerHandler.class);
 
     private Properties prop = new Properties();
+    private DispatchPtr hMailServerApp;
+    private DispatchPtr domain; // Will hold the hMailServer domain object -> mygreenbill.com
+    private DispatchPtr accounts; // Will hold the all the accounts from the domain object
 
     /**
      * Constructor for loading the properties file
@@ -34,27 +37,63 @@ public class MailServerHandler implements IMailServerHandler
         }
     }
 
+    /**
+     * This function will prepare the hMailServer to communicate with the java code
+     * and initializing the local variables domain and accounts
+     */
+    private void prepareMailServer()
+    {
+        try
+        {
+            Ole32.CoInitialize(); // Initialize the current thread with COM library
+            hMailServerApp = new DispatchPtr(prop.getProperty("app_name"));
+            hMailServerApp.invoke("Authenticate", prop.getProperty("hMailServer_user"), prop.getProperty("hMailServer_pass"));
+
+            // Getting the Domains object
+            DispatchPtr domains = (DispatchPtr) hMailServerApp.get("Domains");
+
+            // Getting the Domain object
+            domain = (DispatchPtr) domains.get("ItemByName", prop.getProperty("domain_name"));
+
+            // Getting all the accounts of from Domain object
+            accounts = (DispatchPtr) domain.get("Accounts");
+        }
+        catch (COMException e)
+        {
+            e.printStackTrace();
+            LOGGER.error("COMException in prepareMailServer");
+        }
+
+        LOGGER.info("hMailServer is ready");
+    }
+
+    /**
+     * Closing the connection with the hMailServer
+     */
+    private void closeMailServerConnection()
+    {
+        try
+        {
+            Ole32.CoUninitialize(); // Release the COM library
+            LOGGER.info("hMailServer is released");
+        }
+        catch (COMException e)
+        {
+            e.printStackTrace();
+            LOGGER.error("COMException in closeMailServerConnection");
+        }
+    }
+
     @Override
     public boolean createNewAccount(String accountName, String password, String forwardAddress)
     {
         LOGGER.info("Request for creating new account");
-        LOGGER.info("New account name -> " + accountName);
-        LOGGER.info("New forward address -> " + forwardAddress);
+        LOGGER.info("Account name -> " + accountName);
+        LOGGER.info("Forward address -> " + forwardAddress);
 
         try
         {
-            Ole32.CoInitialize(); // Initialize the current thread with COM library
-            DispatchPtr app = new DispatchPtr(prop.getProperty("app_name"));
-            DispatchPtr obje = (DispatchPtr) app.invoke("Authenticate", prop.getProperty("hMailServer_user"), prop.getProperty("hMailServer_pass"));
-
-            // Getting the Domains object
-            DispatchPtr domains = (DispatchPtr) app.get("Domains");
-
-            // Getting the Domain object
-            DispatchPtr domain = (DispatchPtr) domains.get("ItemByName", prop.getProperty("domain_name"));
-
-            // Getting all the accounts of from Domain object
-            DispatchPtr accounts = (DispatchPtr) domain.get("Accounts");
+            prepareMailServer(); // Connect to the hMailServer
 
             // Create new account and set the property
             DispatchPtr newAccount = (DispatchPtr) accounts.invoke("Add");
@@ -63,13 +102,13 @@ public class MailServerHandler implements IMailServerHandler
             newAccount.put("Password", password); // Set the new account password
             newAccount.put("Active", true); // Activate the new account
             newAccount.put("MaxSize", 100); // Set the account size
-            newAccount.put("ForwardAddress", forwardAddress); // Set the address to forward to
+            newAccount.put("ForwardAddress", forwardAddress); // Set the forward address
             newAccount.put("ForwardEnabled", true); // Set the forward feature enable
             newAccount.put("ForwardKeepOriginal", true); // Keep the original message in our local DB
 
             newAccount.invoke("Save"); // Save the new account
 
-            Ole32.CoUninitialize(); // Release the COM library
+            closeMailServerConnection(); // Closing the connection with mail server
         }
         catch (COMException e)
         {
@@ -85,7 +124,24 @@ public class MailServerHandler implements IMailServerHandler
     @Override
     public void setForwardAddress(String accountName, String forwardAddress)
     {
+        prepareMailServer(); // Connect to the hMailServer
 
+        try
+        {
+            // Get the account
+            DispatchPtr account = (DispatchPtr) accounts.get("ItemByAddress", accountName + "@" + prop.getProperty("domain_name"));
+
+            account.put("ForwardAddress", forwardAddress); // Set the new forward address
+            account.invoke("Save"); // Save the new account
+        }
+        catch (COMException e)
+        {
+            e.printStackTrace();
+            LOGGER.error("COMException in setForwardAddress");
+        }
+
+        closeMailServerConnection(); // Closing the connection with mail server
+        LOGGER.info("New forward address was set for: " + accountName + ", to: " + forwardAddress);
     }
 
     @Override
