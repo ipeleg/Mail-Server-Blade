@@ -5,9 +5,12 @@
       <element id="module-output" name="Mail-Server-Blade" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jawin-stubs.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jawin.jar" path-in-jar="/" />
-      <element id="dir-copy" path="$PROJECT_DIR$/conf" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-1.2.16.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.mail.jar" path-in-jar="/" />
+      <element id="directory" name="conf">
+        <element id="dir-copy" path="$PROJECT_DIR$/conf" />
+      </element>
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-io-2.4.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

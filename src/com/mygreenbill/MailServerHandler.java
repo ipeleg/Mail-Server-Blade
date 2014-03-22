@@ -1,5 +1,7 @@
 package com.mygreenbill;
 
+import com.sun.tools.javac.util.Convert;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jawin.COMException;
 import org.jawin.DispatchPtr;
@@ -8,7 +10,8 @@ import org.jawin.win32.Ole32;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
+import javax.xml.bind.DatatypeConverter;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -16,7 +19,7 @@ import java.util.Properties;
  */
 public class MailServerHandler implements IMailServerHandler
 {
-    //Logger
+    //Create class logger
     private static final Logger LOGGER = Logger.getLogger(MailServerHandler.class);
 
     private Properties prop = new Properties();
@@ -31,7 +34,7 @@ public class MailServerHandler implements IMailServerHandler
     {
         try
         {
-            prop.load(MailServerHandler.class.getResourceAsStream("/configuration.properties")); // Load the file to the properties object
+            prop.load(MailServerHandler.class.getResourceAsStream("/conf/configuration.properties")); // Load the file to the properties object
             LOGGER.info("MailServerHandler Object was created");
         }
         catch (IOException e)
@@ -88,6 +91,44 @@ public class MailServerHandler implements IMailServerHandler
         }
     }
 
+    /**
+     * The method will parse the given eml file content and return only the base64 string of the attachment
+     * @param emlContent
+     * @return
+     */
+    private String getAttachmentString(String emlContent)
+    {
+        String result = "";
+        boolean foundAttachment = false;
+        boolean foundLineBreak = false;
+
+        String[] lines = emlContent.split(System.getProperty("line.separator"));
+        for (int i=0 ; i<lines.length ; ++i)
+        {
+            // Remove all end of line characters
+            lines[i] = lines[i].replaceAll("(\\r|\\n)", "");
+
+            // If you foundAttachment && foundLineBreak are true we are now reading the base64 of the attachment
+            if (foundAttachment && foundLineBreak)
+            {
+                if ((lines[i].isEmpty()))
+                    break;
+
+                result+=lines[i];
+            }
+
+            // If we encounter the "attachment" word we'll search for the next line break and then the attachment
+            if (lines[i].contains("attachment"))
+                foundAttachment = true;
+
+            //  If we encountered the "attachment" already and the line is empty we are starting to read the base64 of the attachment
+            if (foundAttachment && (lines[i].isEmpty()))
+                foundLineBreak = true;
+        }
+
+        return result;
+    }
+
     @Override
     public boolean createNewAccount(String accountName, String password, String forwardAddress)
     {
@@ -132,7 +173,7 @@ public class MailServerHandler implements IMailServerHandler
 
         try
         {
-            // Get the account
+            // Get the account for which new forward address needs to be set
             DispatchPtr account = (DispatchPtr) accounts.get("ItemByAddress", accountName + "@" + prop.getProperty("domain_name"));
 
             account.put("ForwardAddress", forwardAddress); // Set the new forward address
@@ -190,7 +231,83 @@ public class MailServerHandler implements IMailServerHandler
             return false;
         }
 
-        LOGGER.info("Message was sent to: " + toAddress);
+        LOGGER.info("Message with subject " + subject + ", was sent to: " + toAddress);
         return true;
+    }
+
+    public void getAccountAllAttachments(String accountName)
+    {
+        prepareMailServer(); // Connect to the hMailServer
+
+        try
+        {
+            // Get the account for which new forward address needs to be set
+            DispatchPtr account = (DispatchPtr) accounts.get("ItemByAddress", accountName + "@" + prop.getProperty("domain_name"));
+
+            // Get the account imap folder
+            DispatchPtr imapFolders = (DispatchPtr) account.get("IMAPFolders");
+            DispatchPtr imapFolder = (DispatchPtr) imapFolders.get("ItemByName", "Inbox");
+            DispatchPtr messages = (DispatchPtr) imapFolder.get("Messages");
+
+            // Get the total number of messages in the INBOX folder
+            long numberOfMessages = Long.decode(String.valueOf(messages.get("Count")));
+            for (long i=0 ; i < numberOfMessages ; ++i)
+            {
+                DispatchPtr message = (DispatchPtr) messages.get("Item", String.valueOf(i));
+
+                // Get the attachments of the message
+                DispatchPtr attachments = (DispatchPtr) message.get("Attachments");
+                long numberOfAttachments = Long.decode(String.valueOf(attachments.get("Count")));
+
+                // Check if the message contain attachments
+                if (numberOfAttachments != 0)
+                {
+                    for (long t=0 ; t < numberOfAttachments ; ++t)
+                    {
+                        DispatchPtr attachment = (DispatchPtr) attachments.get("Item", String.valueOf(t));
+
+                        String messageFileContent = IOUtils.toString(new FileInputStream(String.valueOf(message.get("Filename"))), "utf-8");
+                        String attachmentString = getAttachmentString(messageFileContent);
+
+                        // Get the attachment file type
+                        String attachmentType = String.valueOf(attachment.get("Filename"));
+                        attachmentType = attachmentType.substring(attachmentType.lastIndexOf(".") + 1);
+
+                        // This just an example on how to convert base64 to pdf file
+                        //////////////////////////////////////////////////////////////////////////////////
+                        byte[] decodedBytes = DatatypeConverter.parseBase64Binary(attachmentString);
+
+                        File file = new File("C:/Users/Administrator/Desktop/test." + attachmentType);
+                        FileOutputStream fop = new FileOutputStream(file);
+
+                        fop.write(decodedBytes);
+                        fop.flush();
+                        fop.close();
+                        //////////////////////////////////////////////////////////////////////////////////
+                    }
+                }
+                else
+                {
+                    LOGGER.info("The message " + message.get("Subject") + " from " + message.get("Date") + " does not contain any attachments");
+                }
+            }
+        }
+        catch (COMException e)
+        {
+            e.printStackTrace();
+            LOGGER.error("COMException in getAccountAllAttachments");
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            LOGGER.error("FileNotFoundException in getAccountAllAttachments");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            LOGGER.error("IOException in getAccountAllAttachments");
+        }
+
+        closeMailServerConnection(); // Closing the connection with mail server
     }
 }
