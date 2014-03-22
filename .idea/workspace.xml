@@ -10,9 +10,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" afterPath="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java" afterPath="$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Mail_Server_Blade_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Mail_Server_Blade_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mygreenbill/Main.java" afterPath="$PROJECT_DIR$/src/com/mygreenbill/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/configuration.properties" afterPath="$PROJECT_DIR$/conf/configuration.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Mail-Server-Blade.iws" />
@@ -80,11 +77,11 @@
       <file leaf-file-name="MailServerHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="175" column="48" selection-start="6356" selection-end="6356" vertical-scroll-proportion="1.390625" vertical-offset="2091" max-vertical-offset="3030">
+            <state line="169" column="74" selection-start="6256" selection-end="6256" vertical-scroll-proportion="-0.1953125" vertical-offset="2610" max-vertical-offset="3030">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6052#6282#0" expanded="true" />
-                <element signature="e#6263#6264#0" expanded="true" />
+                <element signature="e#6066#6296#0" expanded="true" />
+                <element signature="e#6277#6278#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -108,6 +105,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="IMailServerHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="25" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0" vertical-offset="173" max-vertical-offset="585">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -123,10 +129,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/mygreenbill/com/MailServerHandler.java" />
         <option value="$PROJECT_DIR$/src/log4j.properties" />
-        <option value="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" />
         <option value="$PROJECT_DIR$/conf/configuration.properties" />
         <option value="$PROJECT_DIR$/src/com/mygreenbill/Main.java" />
         <option value="$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java" />
       </list>
     </option>
   </component>
@@ -622,7 +628,7 @@
       <workItem from="1395348079762" duration="177000" />
       <workItem from="1395348370869" duration="6316000" />
       <workItem from="1395405450799" duration="162000" />
-      <workItem from="1395405643366" duration="3653000" />
+      <workItem from="1395405643366" duration="4278000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit&#10;">
       <created>1395343623659</created>
@@ -644,11 +650,15 @@
       <created>1395407227325</created>
       <updated>1395407227325</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Send email to user was added">
+      <created>1395445931430</created>
+      <updated>1395445931430</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15036000" />
+    <option name="totallyTimeSpent" value="15661000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -717,7 +727,8 @@
     <MESSAGE value="Initial commit&#10;" />
     <MESSAGE value="Create new account added" />
     <MESSAGE value="Set forward address was added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set forward address was added" />
+    <MESSAGE value="Send email to user was added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Send email to user was added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -732,8 +743,8 @@
         <state line="35" column="0" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" vertical-offset="230" max-vertical-offset="1530">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6052#6282#0" expanded="true" />
-            <element signature="e#6263#6264#0" expanded="true" />
+            <element signature="e#6066#6296#0" expanded="true" />
+            <element signature="e#6277#6278#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -764,8 +775,8 @@
         <state line="25" column="28" selection-start="549" selection-end="549" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1560">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6052#6282#0" expanded="true" />
-            <element signature="e#6263#6264#0" expanded="true" />
+            <element signature="e#6066#6296#0" expanded="true" />
+            <element signature="e#6277#6278#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -789,8 +800,8 @@
         <state line="56" column="36" selection-start="1459" selection-end="1459" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1560">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6052#6282#0" expanded="true" />
-            <element signature="e#6263#6264#0" expanded="true" />
+            <element signature="e#6066#6296#0" expanded="true" />
+            <element signature="e#6277#6278#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -816,9 +827,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="69" selection-start="521" selection-end="521" vertical-scroll-proportion="0.20654912" vertical-offset="188" max-vertical-offset="585">
+        <state line="18" column="87" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
           <folding />
         </state>
       </provider>
@@ -830,20 +841,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/IMailServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="87" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+        <state line="28" column="25" selection-start="746" selection-end="746" vertical-scroll-proportion="0.0" vertical-offset="173" max-vertical-offset="585">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mygreenbill/MailServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="48" selection-start="6356" selection-end="6356" vertical-scroll-proportion="1.390625" vertical-offset="2091" max-vertical-offset="3030">
+        <state line="169" column="74" selection-start="6256" selection-end="6256" vertical-scroll-proportion="-0.1953125" vertical-offset="2610" max-vertical-offset="3030">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6052#6282#0" expanded="true" />
-            <element signature="e#6263#6264#0" expanded="true" />
+            <element signature="e#6066#6296#0" expanded="true" />
+            <element signature="e#6277#6278#0" expanded="true" />
           </folding>
         </state>
       </provider>

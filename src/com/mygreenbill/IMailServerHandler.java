@@ -26,8 +26,8 @@ public interface IMailServerHandler
     /**
      *
      * @param toAddress
-     * @param message
+     * @param messageBody
      * @return
      */
-    public boolean sendMessage(String toAddress, String message);
+    public boolean sendMessage(String toAddress, String subject, String messageBody);
 }

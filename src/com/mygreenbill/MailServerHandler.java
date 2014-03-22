@@ -151,7 +151,7 @@ public class MailServerHandler implements IMailServerHandler
     }
 
     @Override
-    public boolean sendMessage(String toAddress, String messageToUser)
+    public boolean sendMessage(String toAddress, String subject, String messageBody)
     {
         final String username = "donotreplay"; // The account from which we send mails to users
         final String pass = prop.getProperty("donotreplay_pass"); // The account password is in the properties file
@@ -178,8 +178,8 @@ public class MailServerHandler implements IMailServerHandler
             message.setFrom(new InternetAddress(username + "@mygreenbill.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
 
-            message.setSubject("Testing Subject");
-            message.setText(messageToUser);
+            message.setSubject(subject);
+            message.setText(messageBody);
 
             Transport.send(message); // Sending the message
         }
