@@ -1,6 +1,6 @@
 package com.mygreenbill;
 
-import com.sun.tools.javac.util.Convert;
+import com.mygreenbill.ssh.ConnectionHandler;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jawin.COMException;
@@ -41,6 +41,7 @@ public class MailServerHandler implements IMailServerHandler
         {
             e.printStackTrace();
             LOGGER.error("IOException in MailServerHandler");
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -69,6 +70,7 @@ public class MailServerHandler implements IMailServerHandler
         {
             e.printStackTrace();
             LOGGER.error("COMException in prepareMailServer");
+            LOGGER.error(e.getMessage());
         }
 
         LOGGER.info("hMailServer is ready, Domain and Accounts objects were set");
@@ -88,13 +90,14 @@ public class MailServerHandler implements IMailServerHandler
         {
             e.printStackTrace();
             LOGGER.error("COMException in closeMailServerConnection");
+            LOGGER.error(e.getMessage());
         }
     }
 
     /**
      * The method will parse the given eml file content and return only the base64 string of the attachment
-     * @param emlContent
-     * @return
+     * @param emlContent The EML file content as one long string
+     * @return Returns only the attachment string
      */
     private String getAttachmentString(String emlContent)
     {
@@ -129,6 +132,64 @@ public class MailServerHandler implements IMailServerHandler
         return result;
     }
 
+    /**
+     * For each new account creating the rule for copying every incoming message attachments to MySQL machine
+     * @param accountName The account name
+     */
+    private void setCopyAttachmentToDbRule(String accountName)
+    {
+        try
+        {
+            DispatchPtr account = (DispatchPtr) accounts.get("ItemByAddress", accountName + "@" + prop.getProperty("domain_name"));
+            DispatchPtr accountRules = (DispatchPtr) account.get("Rules");
+
+            DispatchPtr newRule = (DispatchPtr) accountRules.invoke("Add");
+            newRule.put("Name", "Copy attachment to DB"); // Set the new account password
+
+            // Setting the criteria for the new rule, the rule will be activated for each incoming email
+            DispatchPtr newRuleCriterias = (DispatchPtr) newRule.get("Criterias");
+            DispatchPtr newRuleCriteria = (DispatchPtr) newRuleCriterias.invoke("Add");
+            newRuleCriteria.put("PredefinedField", "6"); // Const eFTMessageSize = 6, the size of the message
+            newRuleCriteria.put("MatchType", "4"); // Const eMTGreaterThan = 4
+            newRuleCriteria.put("MatchValue", "0"); // The message size should be greater than 0
+
+            newRuleCriteria.invoke("Save"); // Saving the new rule criterias
+
+            // Setting the rule action
+            DispatchPtr newRuleActions = (DispatchPtr) newRule.get("Actions");
+            DispatchPtr newRuleAction = (DispatchPtr) newRuleActions.invoke("Add");
+            newRuleAction.put("Type", "5"); // Const 5 = Run function
+            newRuleAction.put("ScriptFunction", "OnIncomingMessage");
+
+            newRuleAction.invoke("Save"); // Saving the new rule actions
+
+            newRule.invoke("Save"); // Save the new rule
+
+        }
+        catch (COMException e)
+        {
+            LOGGER.error("COMException in setCopyAttachmentToDbRule");
+            LOGGER.error(e.getMessage());
+            return;
+        }
+
+        LOGGER.info("\"Copy attachment to DB\" rule was created for -> " + accountName);
+    }
+
+    /**
+     * For each new account creating the folder in MySQL machine
+     * @param accountName The account name
+     */
+    private void createAccountFolderInMysql(String accountName)
+    {
+        ConnectionHandler connectionHandler = new ConnectionHandler();
+        connectionHandler.createConnection(prop.getProperty("mysql_username"), prop.getProperty("mysql_password"), prop.getProperty("mysql_ip"));
+        connectionHandler.createNewFolder(prop.getProperty("mysql_path") + accountName);
+        connectionHandler.closeConnection();
+
+        LOGGER.info("New folder in MySQL machine was created for " + accountName);
+    }
+
     @Override
     public boolean createNewAccount(String accountName, String password, String forwardAddress)
     {
@@ -153,12 +214,15 @@ public class MailServerHandler implements IMailServerHandler
 
             newAccount.invoke("Save"); // Save the new account
 
+            setCopyAttachmentToDbRule(accountName); // Set the rule for copying files for each incoming mail
+            createAccountFolderInMysql(accountName); // Create folder for the account on the MySQL machine
+
             closeMailServerConnection(); // Closing the connection with mail server
         }
         catch (COMException e)
         {
-            e.printStackTrace();
             LOGGER.error("COMException in createNewAccount");
+            LOGGER.error(e.getMessage());
             return false;
         }
 
@@ -181,8 +245,8 @@ public class MailServerHandler implements IMailServerHandler
         }
         catch (COMException e)
         {
-            e.printStackTrace();
             LOGGER.error("COMException in setForwardAddress");
+            LOGGER.error(e.getMessage());
             return false;
         }
 
@@ -194,7 +258,7 @@ public class MailServerHandler implements IMailServerHandler
     @Override
     public boolean sendMessage(String toAddress, String subject, String messageBody)
     {
-        final String username = "donotreplay"; // The account from which we send mails to users
+        final String username = prop.getProperty("donotreplay_user"); // The account from which we send mails to users
         final String pass = prop.getProperty("donotreplay_pass"); // The account password is in the properties file
 
         // The SMTP server properties
@@ -228,6 +292,7 @@ public class MailServerHandler implements IMailServerHandler
         {
             e.printStackTrace();
             LOGGER.error("MessagingException in sendMessage");
+            LOGGER.error(e.getMessage());
             return false;
         }
 
@@ -294,18 +359,18 @@ public class MailServerHandler implements IMailServerHandler
         }
         catch (COMException e)
         {
-            e.printStackTrace();
             LOGGER.error("COMException in getAccountAllAttachments");
+            LOGGER.error(e.getMessage());
         }
         catch (FileNotFoundException e)
         {
-            e.printStackTrace();
             LOGGER.error("FileNotFoundException in getAccountAllAttachments");
+            LOGGER.error(e.getMessage());
         }
         catch (IOException e)
         {
-            e.printStackTrace();
             LOGGER.error("IOException in getAccountAllAttachments");
+            LOGGER.error(e.getMessage());
         }
 
         closeMailServerConnection(); // Closing the connection with mail server
