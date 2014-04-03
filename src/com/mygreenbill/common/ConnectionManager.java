@@ -177,18 +177,9 @@ public class ConnectionManager
     }
 
     /**
-     * Reads all text from buffer reader - return the string that was read
+     * Processing JSON from an incoming message from the the Management-Blade
+     * @param json The incoming JSON to parse
      */
-    private String readAll(Reader rd) throws IOException
-    {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
-
     public void processJson(JSONObject json)
     {
         if (json == null)

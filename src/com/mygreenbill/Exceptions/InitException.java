@@ -5,7 +5,9 @@ package com.mygreenbill.Exceptions;
  */
 public class InitException extends Exception
 {
-    public InitException(String message)
+	private static final long serialVersionUID = 1L;
+
+	public InitException(String message)
     {
         super(message);
     }

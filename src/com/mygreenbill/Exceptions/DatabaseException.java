@@ -5,7 +5,9 @@ package com.mygreenbill.Exceptions;
  */
 public class DatabaseException extends Exception
 {
-    public DatabaseException(String message)
+	private static final long serialVersionUID = 1L;
+
+	public DatabaseException(String message)
     {
         super(message);
     }
