@@ -172,7 +172,11 @@ public class ConnectionManager
             try
             {
                 toClose.close();
-            } catch (SQLException ignore){}
+            }
+            catch (SQLException ignore)
+            {
+            	
+            }
         }
     }
 
