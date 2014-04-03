@@ -19,7 +19,7 @@ public class Main
             e.printStackTrace();
         }
 
-        //IMailServerHandler obj = new MailServerHandler();
+        // IMailServerHandler obj = new MailServerHandler();
         // obj.createNewAccount("hanny", "1234", "barhanny@gmail.com");
         // obj.setForwardAddress("hanny", "hannybanister@gmail.com");
         // obj.sendMessage("ipeleg@hotmail.com", "Some subject", "Hello idan\n\nThis is a testing email");
