@@ -212,6 +212,7 @@ public class ConnectionManager
                     {
                         this.LOGGER.info("JsonRequestSender sleep was interrupted: " + e.getMessage());
                     }
+
                     continue;
                 }
 
@@ -220,8 +221,8 @@ public class ConnectionManager
                 
                 while (iterator.hasNext())
                 {
-                    Map.Entry<String, RequestJson> pairs = (Map.Entry<String, RequestJson>)iterator.next();
-                    RequestJson toResend = (RequestJson) pairs.getValue();
+                    Map.Entry<String, RequestJson> pairs = iterator.next();
+                    RequestJson toResend =  pairs.getValue();
                     if (toResend.getNumberOfResendingAttempts() < maxNumberOfResendAttempts)
                     {
                         sendMessage(toResend);
@@ -270,12 +271,10 @@ public class ConnectionManager
             catch (UnknownHostException e)
             {
                 LOGGER.error("Error with host name: " + managmentBladeIp, e);
-                return;
             }
             catch (IOException e)
             {
                 LOGGER.info("Unable to send the request: " + message, e);
-                return;
             }
         }
     }
