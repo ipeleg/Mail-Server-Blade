@@ -1,8 +1,7 @@
 package com.mygreenbill.common;
 
+import com.mygreenbill.JsonMessageHandler;
 import com.mygreenbill.Exceptions.*;
-import com.mygreenbill.security.EncryptionType;
-import com.mygreenbill.security.EncryptionUtil;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
@@ -33,6 +32,7 @@ public class ConnectionManager
     private DatagramSocket socket;
     private Thread sender;
     private final int MAX_DATAGRAM_SIZE = 65508;
+    private JsonMessageHandler jsonMessageHandler;
 
     private PoolProperties jdbcPoolProperties;
     private DataSource datasource;
@@ -117,7 +117,9 @@ public class ConnectionManager
             Thread listeningThread = new Thread(new InnerCommunicationListening());
             listeningThread.start();
             LOGGER.info("Listening Thread has started");
-
+            
+            // Creating new JSON message handler
+            jsonMessageHandler = new JsonMessageHandler();
         }
         catch (ConfigurationException e)
         {
@@ -177,39 +179,6 @@ public class ConnectionManager
             {
             	
             }
-        }
-    }
-
-    /**
-     * Processing JSON from an incoming message from the the Management-Blade
-     * @param json The incoming JSON to parse
-     */
-    public void processJson(JSONObject json)
-    {
-        if (json == null)
-            return;
-
-        try
-        {
-            JSONObject innerJson = json.getJSONObject("Message"); // Getting the inner JSON object
-            int id = innerJson.getInt("messageID"); // Getting the message ID
-            String message = innerJson.getString("message"); // Getting the message
-            String messageMD5 = EncryptionUtil.encryptString(innerJson.toString(), EncryptionType.MD5); // Checking the MD5 of the incoming message
-
-            if (messageMD5.equals(json.getString("CheckSum")))
-            {
-                JSONObject ackJson = new JSONObject("{messageID: "+ id +", MessageType: ACK}");
-                LOGGER.info("Sending ACK on message ID: " + id);
-                sendToTrafficBlade(ackJson); // Sending back the ACK json the the management blade
-            }
-            else
-            {
-                LOGGER.info("New Message received from management blade but the MD5 are not equal");
-            }
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -354,7 +323,7 @@ public class ConnectionManager
                     String str = new String(buffer, "UTF-8");
                     JSONObject ob = new JSONObject(str);
                     this.LOGGER.info("New message received, composed it into JSON: " + ob.toString());
-                    processJson(ob);
+                    jsonMessageHandler.processJson(ob);
                 }
                 catch (IOException e)
                 {
