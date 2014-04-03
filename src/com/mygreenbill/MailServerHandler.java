@@ -22,7 +22,7 @@ public class MailServerHandler implements IMailServerHandler
     //Create class logger
     private static final Logger LOGGER = Logger.getLogger(MailServerHandler.class);
 
-    private Properties prop = new Properties();
+    private Properties prop;
     private DispatchPtr hMailServerApp;
     private DispatchPtr domain; // Will hold the hMailServer domain object -> mygreenbill.com
     private DispatchPtr accounts; // Will hold the all the accounts from the domain object
@@ -34,6 +34,7 @@ public class MailServerHandler implements IMailServerHandler
     {
         try
         {
+            prop = new Properties();
             prop.load(MailServerHandler.class.getResourceAsStream("/conf/configuration.properties")); // Load the file to the properties object
             LOGGER.info("MailServerHandler Object was created");
         }
